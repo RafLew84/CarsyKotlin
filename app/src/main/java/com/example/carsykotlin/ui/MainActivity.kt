@@ -7,7 +7,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.carsykotlin.R
+import com.example.carsykotlin.data.DataProvider
 import com.example.carsykotlin.databinding.ActivityMainBinding
+import com.example.carsykotlin.data.CostListItem
 
 class MainActivity : AppCompatActivity() {
 
