@@ -1,7 +1,10 @@
 package com.example.carsykotlin.data
 
+import com.example.carsykotlin.util.polishMonthsNames
 import java.time.LocalDate
 import java.time.Month
+import java.time.format.TextStyle
+import java.util.*
 import kotlin.random.Random
 
 object DataProvider {
@@ -33,7 +36,7 @@ object DataProvider {
         month: Month,
         costsOfMonth: List<Cost>
     ) = listOf(
-        CostListItem.CostDateItem(month.toString()),
+        CostListItem.CostMonthItem(polishMonthsNames(month)),
         *costsOfMonth.sortedBy { it.date.dayOfMonth }
             .map { CostListItem.CostGeneralItem(it) }
             .toTypedArray()
