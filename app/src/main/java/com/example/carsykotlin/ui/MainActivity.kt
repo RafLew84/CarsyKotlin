@@ -24,15 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val l = DataProvider.getTimeLineList()
-        for (i in l){
-            when(i){
-                is CostListItem.CostGeneralItem -> println(i.cost.date.toString() + " " + i.cost.amount)
-                is CostListItem.CostMonthItem -> println(i.month)
-                is CostListItem.CostYearItem -> println(i.year)
-            }
-        }
-
         binding.bottomNavView.setupWithNavController(navController)
     }
 }

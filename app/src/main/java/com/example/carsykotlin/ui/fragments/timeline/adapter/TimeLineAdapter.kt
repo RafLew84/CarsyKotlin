@@ -4,16 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.carsykotlin.data.Cost
 import com.example.carsykotlin.data.CostListItem
 import com.example.carsykotlin.data.DataProvider
 import com.example.carsykotlin.databinding.GeneralItemTimelineRecyclerviewBinding
 import com.example.carsykotlin.databinding.MonthItemTimelineRecyclerviewBinding
 import com.example.carsykotlin.databinding.YearItemTimelineRecyclerviewBinding
 
-class TimeLineAdapter(private val context: Context)
+class TimeLineAdapter(costsList: List<Cost>, private val context: Context)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val itemList = DataProvider.getTimeLineList()
+    private val itemList = DataProvider.getTimeLineList(costsList)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {

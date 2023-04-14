@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.carsykotlin.R
+import com.example.carsykotlin.data.DataProvider
 import com.example.carsykotlin.databinding.FragmentTimeLineBinding
 import com.example.carsykotlin.ui.fragments.timeline.adapter.TimeLineAdapter
 
@@ -20,11 +24,41 @@ class TimeLineFragment : Fragment() {
     ): View {
         binding = FragmentTimeLineBinding.inflate(inflater)
 
-        binding.timeLineRecyclerView.apply{
-            adapter = TimeLineAdapter(requireContext())
-            layoutManager = LinearLayoutManager(requireContext())
-        }
+        val recycler = setupRecyclerView()
+
+        setupDropDownSelector(recycler)
 
         return binding.root
+    }
+
+    private fun setupDropDownSelector(recycler: RecyclerView) {
+        binding.autoCompleteTextView.apply {
+
+            setText(DataProvider.cars[0].name)
+
+            setAdapter(
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item,
+                    DataProvider.cars.map { it.name })
+            )
+
+            onItemClickListener =
+                AdapterView.OnItemClickListener { _, _, position, _ ->
+                    recycler.swapAdapter(
+                        TimeLineAdapter(
+                            DataProvider.cars[position].costs,
+                            requireContext()
+                        ), true
+                    )
+                }
+        }
+    }
+
+    private fun setupRecyclerView(): RecyclerView {
+        return binding.timeLineRecyclerView.apply {
+            adapter = TimeLineAdapter(DataProvider.cars[0].costs, requireContext())
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 }
