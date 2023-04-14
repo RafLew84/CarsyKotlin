@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carsykotlin.R
@@ -32,7 +33,8 @@ class TimeLineFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        setupDropDownSelector(recycler)
+        setupAutoCompleteAdapter(binding.autoCompleteTextView)
+
     }
 
     private fun setupDropDownSelector(recycler: RecyclerView) {
@@ -40,12 +42,7 @@ class TimeLineFragment : Fragment() {
 
             setText(DataProvider.cars[0].name)
 
-            setAdapter(
-                ArrayAdapter(
-                    requireContext(),
-                    R.layout.dropdown_item,
-                    DataProvider.cars.map { it.name })
-            )
+            setupAutoCompleteAdapter(this)
 
             onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -57,6 +54,15 @@ class TimeLineFragment : Fragment() {
                     )
                 }
         }
+    }
+
+    private fun setupAutoCompleteAdapter(autoCompleteTextView: AutoCompleteTextView) {
+        autoCompleteTextView.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                R.layout.dropdown_item,
+                DataProvider.cars.map { it.name })
+        )
     }
 
     private fun setupRecyclerView(): RecyclerView {
