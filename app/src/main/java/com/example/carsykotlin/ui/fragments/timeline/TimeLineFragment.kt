@@ -17,6 +17,7 @@ import com.example.carsykotlin.ui.fragments.timeline.adapter.TimeLineAdapter
 class TimeLineFragment : Fragment() {
 
     private lateinit var binding: FragmentTimeLineBinding
+    private val recycler by lazy { setupRecyclerView() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,11 +25,14 @@ class TimeLineFragment : Fragment() {
     ): View {
         binding = FragmentTimeLineBinding.inflate(inflater)
 
-        val recycler = setupRecyclerView()
-
         setupDropDownSelector(recycler)
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupDropDownSelector(recycler)
     }
 
     private fun setupDropDownSelector(recycler: RecyclerView) {
