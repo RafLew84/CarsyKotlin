@@ -25,24 +25,15 @@ class TimeLineAdapter(private val context: Context)
 
     override fun getItemCount(): Int = itemList.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindItemViewHolder(holder, position)
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return itemList[position].viewType
-    }
-
-    private fun bindItemViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int
-    ){
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when(holder){
             is YearItemViewHolder -> holder.bind(itemList[position] as CostListItem.CostYearItem)
             is MonthItemViewHolder -> holder.bind(itemList[position] as CostListItem.CostMonthItem)
             is GeneralItemViewHolder -> holder.bind(itemList[position] as CostListItem.CostGeneralItem, context)
+            else -> throw IllegalArgumentException("wrong ViewHolder")
         }
-    }
+
+    override fun getItemViewType(position: Int) = itemList[position].viewType
 
     private fun createYearItemViewHolder(parent: ViewGroup) =
         YearItemViewHolder(
