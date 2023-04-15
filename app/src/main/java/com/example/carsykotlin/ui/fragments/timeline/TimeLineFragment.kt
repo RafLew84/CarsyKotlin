@@ -26,8 +26,6 @@ class TimeLineFragment : Fragment() {
     ): View {
         binding = FragmentTimeLineBinding.inflate(inflater)
 
-        setupDropDownSelector(recycler)
-
         return binding.root
     }
 
@@ -35,25 +33,37 @@ class TimeLineFragment : Fragment() {
         super.onResume()
         setupAutoCompleteAdapter(binding.autoCompleteTextView)
 
+        setupDropDownSelector(recycler)
     }
 
     private fun setupDropDownSelector(recycler: RecyclerView) {
         binding.autoCompleteTextView.apply {
 
-            setText(DataProvider.cars[0].name)
+            if (text.toString().isEmpty())
+                setText(DataProvider.cars[0].name)
+
+            val itemPosition = DataProvider.cars.indexOfFirst { it.name == binding.autoCompleteTextView.text.toString() }
+            setCurrentAdapter(recycler, itemPosition)
 
             setupAutoCompleteAdapter(this)
 
             onItemClickListener =
                 AdapterView.OnItemClickListener { _, _, position, _ ->
-                    recycler.swapAdapter(
-                        TimeLineAdapter(
-                            DataProvider.cars[position].costs,
-                            requireContext()
-                        ), true
-                    )
+                    setCurrentAdapter(recycler, position)
                 }
         }
+    }
+
+    private fun setCurrentAdapter(
+        recycler: RecyclerView,
+        position: Int
+    ) {
+        recycler.swapAdapter(
+            TimeLineAdapter(
+                DataProvider.cars[position].costs,
+                requireContext()
+            ), true
+        )
     }
 
     private fun setupAutoCompleteAdapter(autoCompleteTextView: AutoCompleteTextView) {

@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:inputType="none"
-            android:text="auto complete view"
+            android:text=""
             android:textSize="24sp"
             android:textColor="@color/purple_200"/>
     </com.google.android.material.textfield.TextInputLayout>
