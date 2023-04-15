@@ -1,5 +1,6 @@
 package com.example.carsykotlin.ui.fragments.timeline
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,7 +39,7 @@ class TimeLineFragment : Fragment() {
 
     private fun setupDropDownSelector(recycler: RecyclerView) {
         binding.autoCompleteTextView.apply {
-
+            setDropDownBackgroundResource(R.color.dark_blue_900)
             if (text.toString().isEmpty())
                 setText(DataProvider.cars[0].name)
 
