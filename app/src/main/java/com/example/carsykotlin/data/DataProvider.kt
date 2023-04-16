@@ -10,9 +10,12 @@ import kotlin.random.Random
 object DataProvider {
 
     val cars = listOf(
-        Car("Domowy", "Skoda", "Fabia", 2002, generalCosts(300)),
-        Car("Służbowy", "BMW", "Coupe", 2015, generalCosts(400)),
-        Car("Kolekcjonerski", "Fiat", "125p", 1985, generalCosts(500))
+        Car("Domowy", "Skoda", "Fabia", 2002, generalCosts(100)),
+        Car("Służbowy", "BMW", "Coupe", 2015, generalCosts(200)),
+        Car("Kolekcjonerski", "Fiat", "125p", 1985, generalCosts(120)),
+        Car("Sportowy", "Lamborghini", "Murcielago", 2012, generalCosts(100)),
+        Car("Zapasowy", "Skoda", "Superb", 2010, generalCosts(120)),
+        Car("SUV", "Skoda", "Kodiaq", 2020, generalCosts(300))
     )
 
     private fun generalCosts(size: Int) = List(size) {
@@ -23,7 +26,7 @@ object DataProvider {
         )
     }
 
-    fun getTimeLineList(costs: List<Cost>): List<CostListItem> = costs
+    fun getTimeLineList(costs: List<Cost>) = costs
             .sortedBy { it.date }
             .groupBy { it.date.year }
             .flatMap { (year, costsOfYear) -> costListItemsByMonths(year, costsOfYear) }
